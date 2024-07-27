@@ -74,7 +74,8 @@ function App() {
           dispatch={dispatch}
           isActive={isActive}
           type='request'
-          loan={!loan}>
+          loan={loan}
+          balance={balance}>
           Rquest a loan of 5000
         </MoveMoneyButton>
         <MoveMoneyButton
