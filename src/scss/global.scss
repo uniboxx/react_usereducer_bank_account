@@ -58,14 +58,18 @@ main {
 	align-items: center;
 	p,
 	button {
-		background-color: aliceblue;
-		color: #101020;
 		padding: 0.5rem 1rem;
-		border-radius: 0.5rem;
 		font-size: 1.5rem;
 		margin-bottom: 1rem;
 	}
+	p {
+		background-color: #101020;
+		color: aliceblue;
+	}
 	button {
+		background-color: aliceblue;
+		color: #101020;
+		border-radius: 0.5rem;
 		cursor: pointer;
 	}
 	button[disabled] {
