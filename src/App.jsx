@@ -21,7 +21,7 @@ function reducer(state, action) {
     case 'deposit':
       return { ...state, balance: state.balance + depositAmount };
     case 'withdraw':
-      if (balance < withDrawAmount) return state;
+      if (state.balance < withDrawAmount) return state;
       return { ...state, balance: state.balance - withDrawAmount };
     case 'requestLoan':
       if (state.loan > 0) return state;
@@ -108,7 +108,7 @@ function App() {
         <p>by unibox</p>
         <p>
           <a href='https://t.me/unibox' target='_blank'>
-            <i class='fa-brands fa-telegram'></i>
+            <i className='fa-brands fa-telegram'></i>
           </a>
         </p>
       </Footer>
