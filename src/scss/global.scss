@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+$header-min-height: 15;
+$footer-min-height: 15;
+$main-min-height: calc(100 - $header-min-height - $footer-min-height);
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	box-sizing: border-box;
+	min-height: 100svh;
+	font-family: sans-serif;
+	background-color: #101020;
+	color: aliceblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+h1 {
+	text-align: center;
+	font-size: 4rem;
+}
+
+header {
+	min-height: #{$header-min-height}svh;
+}
+footer {
+	min-height: #{$footer-min-height}svh;
+}
+main {
+	min-height: #{$main-min-height}svh;
+}
+
+header,
+footer,
+main {
+	padding: 1rem;
+}
+
+header,
+main {
+	border-bottom: 1px solid rgba(aliceblue, 0.25);
+}
