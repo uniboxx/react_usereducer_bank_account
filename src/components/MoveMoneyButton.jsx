@@ -10,12 +10,12 @@ function MoveMoneyButton({
     <button
       onClick={() => dispatch({ type })}
       disabled={
-        (!isActive && type !== 'open') ||
-        (type === 'open' && isActive) ||
+        (!isActive && type !== 'openAccount') ||
+        (type === 'openAccount' && isActive) ||
         (type === 'withdraw' && balance < 50) ||
-        (type === 'request' && loan) ||
-        (type === 'pay' && (balance < loan || !loan)) ||
-        (type === 'close' && (balance > 0 || loan > 0))
+        (type === 'requestLoan' && loan) ||
+        (type === 'payLoan' && (balance < loan || !loan)) ||
+        (type === 'closeAccount' && (balance > 0 || loan > 0))
       }>
       {children}
     </button>

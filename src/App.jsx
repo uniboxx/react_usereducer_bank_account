@@ -9,30 +9,36 @@ const initialState = {
   loan: 0,
   isActive: false,
 };
+const [openAmount, depositAmount, withDrawAmount, loanAmount] = [
+  500, 150, 50, 5000,
+];
 
 function reducer(state, action) {
+  if (!state.isActive && action.type !== 'openAccount') return state;
   switch (action.type) {
-    case 'start':
-      return { ...initialState };
-    case 'open':
-      return { ...state, isActive: true, balance: 500 };
+    case 'openAccount':
+      return { ...state, isActive: true, balance: openAmount };
     case 'deposit':
-      return { ...state, balance: state.balance + 150 };
+      return { ...state, balance: state.balance + depositAmount };
     case 'withdraw':
-      return { ...state, balance: state.balance - 50 };
-    case 'request':
+      if (balance < withDrawAmount) return state;
+      return { ...state, balance: state.balance - withDrawAmount };
+    case 'requestLoan':
+      if (state.loan > 0) return state;
       return {
         ...state,
-        balance: state.balance + 5000,
-        loan: 5000,
+        balance: state.balance + loanAmount,
+        loan: loanAmount,
       };
-    case 'pay':
+    case 'payLoan':
+      if (state.balance < state.loan) return state;
       return {
         ...state,
-        balance: state.balance - 5000,
         loan: 0,
+        balance: state.balance - state.loan,
       };
-    case 'close':
+    case 'closeAccount':
+      if (state.loan > 0 || state.balance !== 0) return state;
       return {
         ...state,
         isActive:
@@ -57,31 +63,34 @@ function App() {
         <p>Balance: {balance}</p>
         <p>Loan: {loan}</p>
 
-        <MoveMoneyButton dispatch={dispatch} isActive={isActive} type='open'>
+        <MoveMoneyButton
+          dispatch={dispatch}
+          isActive={isActive}
+          type='openAccount'>
           Open account
         </MoveMoneyButton>
         <MoveMoneyButton dispatch={dispatch} isActive={isActive} type='deposit'>
-          Deposit 150
+          Deposit {depositAmount}
         </MoveMoneyButton>
         <MoveMoneyButton
           dispatch={dispatch}
           isActive={isActive}
           type='withdraw'
           balance={balance}>
-          Withdraw 50
+          Withdraw {withDrawAmount}
         </MoveMoneyButton>
         <MoveMoneyButton
           dispatch={dispatch}
           isActive={isActive}
-          type='request'
+          type='requestLoan'
           loan={loan}
           balance={balance}>
-          Rquest a loan of 5000
+          Rquest a loan of {loanAmount}
         </MoveMoneyButton>
         <MoveMoneyButton
           dispatch={dispatch}
           isActive={isActive}
-          type='pay'
+          type='payLoan'
           loan={loan}
           balance={balance}>
           Pay loan
@@ -89,7 +98,7 @@ function App() {
         <MoveMoneyButton
           dispatch={dispatch}
           isActive={isActive}
-          type='close'
+          type='closeAccount'
           balance={balance}
           loan={loan}>
           Close account <small>(only if values = 0)</small>
